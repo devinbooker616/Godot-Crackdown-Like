@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqxtpj3lck3rq"]
+
+[ext_resource type="PackedScene" uid="uid://cg5ktx8mnr7e2" path="res://Scenes/agent_marine.tscn" id="1_yjr8j"]
+[ext_resource type="Script" path="res://Code/camera_controller.cs" id="2_s26ru"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_shqvv"]
+radius = 0.510937
+height = 1.99918
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.753534, 0)
+shape = SubResource("CapsuleShape3D_shqvv")
+
+[node name="MeshRoot" type="Node3D" parent="."]
+
+[node name="AgentMarine" parent="MeshRoot" instance=ExtResource("1_yjr8j")]
+
+[node name="CamRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56968, 0.0474987)
+script = ExtResource("2_s26ru")
+
+[node name="CamYaw" type="Node3D" parent="CamRoot"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamRoot/CamYaw"]
+transform = Transform3D(1, 0, 0, 0, 0.94693, -0.321439, 0, 0.321439, 0.94693, 0.0676088, 1.09654, -3.63021)
+
+[node name="Camera3D" type="Camera3D" parent="CamRoot/CamYaw/SpringArm3D"]
+transform = Transform3D(-0.999978, 0, -0.006667, 0, 1, 0, 0.006667, 0, -0.999978, 0.0781417, -0.0283871, 0.0920718)
