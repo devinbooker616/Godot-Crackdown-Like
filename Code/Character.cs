@@ -4,7 +4,7 @@ using System;
 public partial class Character : CharacterBody3D
 {
 	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	public const float JumpVelocity = 50f;
 	Vector3 lastLookAtDirection = new Vector3();
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.

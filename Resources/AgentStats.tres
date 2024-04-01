@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterStats" load_steps=2 format=3 uid="uid://cicugbi5jv716"]
+
+[ext_resource type="Script" path="res://Code/CharacterStats.cs" id="1_au3tk"]
+
+[resource]
+script = ExtResource("1_au3tk")
+Agility = 0.0
+Firearm = 0.0
+Strength = 0.0
+Explosives = 0.0
+Driving = 0.0
+MaxHealth = 0
+StartingHealth = 0

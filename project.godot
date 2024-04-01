@@ -27,6 +27,10 @@ project/assembly_name="Crackdown-like"
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 Forward={
