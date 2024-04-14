@@ -1,0 +1,30 @@
+@startuml AppLogic
+state "AppLogic State" as Crackdownlike_AppLogic_State {
+  state "InGame" as Crackdownlike_AppLogic_State_InGame {
+    Crackdownlike_AppLogic_State_InGame : OnEnter → ShowGame
+    Crackdownlike_AppLogic_State_InGame : OnExit → HideGame
+  }
+  state "LeavingGame" as Crackdownlike_AppLogic_State_LeavingGame {
+    Crackdownlike_AppLogic_State_LeavingGame : OnFadeOutFinished → LoadGame, RemoveExistingGame
+  }
+  state "LeavingMenu" as Crackdownlike_AppLogic_State_LeavingMenu {
+    Crackdownlike_AppLogic_State_LeavingMenu : OnEnter → FadeToBlack
+  }
+  state "MainMenu" as Crackdownlike_AppLogic_State_MainMenu {
+    Crackdownlike_AppLogic_State_MainMenu : OnEnter → LoadGame, ShowMainMenu
+  }
+  state "SplashScreen" as Crackdownlike_AppLogic_State_SplashScreen {
+    Crackdownlike_AppLogic_State_SplashScreen : OnEnter → ShowSplashScreen
+    Crackdownlike_AppLogic_State_SplashScreen : OnSplashScreenSkipped() → HideSplashScreen
+  }
+}
+
+Crackdownlike_AppLogic_State_InGame --> Crackdownlike_AppLogic_State_LeavingGame : EndGame
+Crackdownlike_AppLogic_State_LeavingGame --> Crackdownlike_AppLogic_State_InGame : FadeOutFinished
+Crackdownlike_AppLogic_State_LeavingGame --> Crackdownlike_AppLogic_State_MainMenu : FadeOutFinished
+Crackdownlike_AppLogic_State_LeavingMenu --> Crackdownlike_AppLogic_State_InGame : FadeOutFinished
+Crackdownlike_AppLogic_State_MainMenu --> Crackdownlike_AppLogic_State_LeavingMenu : StartGame
+Crackdownlike_AppLogic_State_SplashScreen --> Crackdownlike_AppLogic_State_MainMenu : FadeOutFinished
+
+[*] --> Crackdownlike_AppLogic_State_SplashScreen
+@enduml

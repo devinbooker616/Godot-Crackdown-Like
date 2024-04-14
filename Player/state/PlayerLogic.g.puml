@@ -1,0 +1,50 @@
+@startuml PlayerLogic
+state "PlayerLogic State" as Crackdownlike_PlayerLogic_State {
+  state "Alive" as Crackdownlike_PlayerLogic_State_Alive {
+    state "Airborne" as Crackdownlike_PlayerLogic_State_Airborne {
+      state "Falling" as Crackdownlike_PlayerLogic_State_Falling {
+        Crackdownlike_PlayerLogic_State_Falling : OnEnter → Fall
+      }
+      state "Jumping" as Crackdownlike_PlayerLogic_State_Jumping {
+        Crackdownlike_PlayerLogic_State_Jumping : OnEnter → Jump
+        Crackdownlike_PlayerLogic_State_Jumping : OnJump → VelocityChanged
+      }
+      state "Liftoff" as Crackdownlike_PlayerLogic_State_Liftoff {
+        Crackdownlike_PlayerLogic_State_Liftoff : OnEnter → Jump
+      }
+    }
+    state "Grounded" as Crackdownlike_PlayerLogic_State_Grounded {
+      state "Idle" as Crackdownlike_PlayerLogic_State_Idle {
+        Crackdownlike_PlayerLogic_State_Idle : OnEnter → Idle
+      }
+      state "Moving" as Crackdownlike_PlayerLogic_State_Moving {
+        Crackdownlike_PlayerLogic_State_Moving : OnEnter → Move
+      }
+      Crackdownlike_PlayerLogic_State_Grounded : OnJump → VelocityChanged
+    }
+    Crackdownlike_PlayerLogic_State_Alive : OnPhysicsTick → MovementComputed
+    Crackdownlike_PlayerLogic_State_Alive : OnPushed → VelocityChanged
+  }
+  state "Dead" as Crackdownlike_PlayerLogic_State_Dead
+  state "Disabled" as Crackdownlike_PlayerLogic_State_Disabled {
+    Crackdownlike_PlayerLogic_State_Disabled : OnEnter → Idle
+  }
+}
+
+Crackdownlike_PlayerLogic_State_Airborne --> Crackdownlike_PlayerLogic_State_Falling : StartedFalling
+Crackdownlike_PlayerLogic_State_Airborne --> Crackdownlike_PlayerLogic_State_Idle : HitFloor
+Crackdownlike_PlayerLogic_State_Airborne --> Crackdownlike_PlayerLogic_State_Moving : HitFloor
+Crackdownlike_PlayerLogic_State_Alive --> Crackdownlike_PlayerLogic_State_Alive : Moved
+Crackdownlike_PlayerLogic_State_Alive --> Crackdownlike_PlayerLogic_State_Alive : PhysicsTick
+Crackdownlike_PlayerLogic_State_Alive --> Crackdownlike_PlayerLogic_State_Alive : Pushed
+Crackdownlike_PlayerLogic_State_Alive --> Crackdownlike_PlayerLogic_State_Dead : Killed
+Crackdownlike_PlayerLogic_State_Disabled --> Crackdownlike_PlayerLogic_State_Idle : Enable
+Crackdownlike_PlayerLogic_State_Grounded --> Crackdownlike_PlayerLogic_State_Falling : LeftFloor
+Crackdownlike_PlayerLogic_State_Grounded --> Crackdownlike_PlayerLogic_State_Jumping : Jump
+Crackdownlike_PlayerLogic_State_Grounded --> Crackdownlike_PlayerLogic_State_Liftoff : LeftFloor
+Crackdownlike_PlayerLogic_State_Idle --> Crackdownlike_PlayerLogic_State_Moving : StartedMovingHorizontally
+Crackdownlike_PlayerLogic_State_Jumping --> Crackdownlike_PlayerLogic_State_Jumping : Jump
+Crackdownlike_PlayerLogic_State_Moving --> Crackdownlike_PlayerLogic_State_Idle : StoppedMovingHorizontally
+
+[*] --> Crackdownlike_PlayerLogic_State_Disabled
+@enduml

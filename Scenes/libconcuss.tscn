@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl3qcva5ibbyy"]
+
+[ext_resource type="PackedScene" uid="uid://c4a5g0hpqh02y" path="res://CharachterModel/libconcuss.glb" id="1_0vw1o"]
+
+[node name="libconcuss" groups=["gun"] instance=ExtResource("1_0vw1o")]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3 uid="uid://cdi58el425xuk"]
+
+[ext_resource type="Script" path="res://Code/WeaponDefinition.cs" id="1_wmfxq"]
+
+[resource]
+script = ExtResource("1_wmfxq")
+nameKey = "name"
+fireRange = 20.0
+rof = 0.1
+damage = 1.0
+equipAnimation = ""
+unequipAnimation = ""
+fireAnimation = ""
+reloadAnimation = ""

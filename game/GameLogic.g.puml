@@ -1,0 +1,46 @@
+@startuml GameLogic
+state "GameLogic State" as Crackdownlike_GameLogic_State {
+  state "Lost" as Crackdownlike_GameLogic_State_Lost {
+    Crackdownlike_GameLogic_State_Lost : OnEnter → ShowLostScreen
+  }
+  state "MenuBackdrop" as Crackdownlike_GameLogic_State_MenuBackdrop
+  state "Paused" as Crackdownlike_GameLogic_State_Paused {
+    state "Saving" as Crackdownlike_GameLogic_State_Saving {
+      Crackdownlike_GameLogic_State_Saving : OnEnter → ShowPauseSaveOverlay
+      Crackdownlike_GameLogic_State_Saving : OnExit → HidePauseSaveOverlay
+    }
+    Crackdownlike_GameLogic_State_Paused : OnEnter → ShowPauseMenu
+    Crackdownlike_GameLogic_State_Paused : OnExit → ExitPauseMenu
+  }
+  state "Playing" as Crackdownlike_GameLogic_State_Playing {
+    Crackdownlike_GameLogic_State_Playing : OnEnter → StartGame
+  }
+  state "Quit" as Crackdownlike_GameLogic_State_Quit
+  state "RestartingGame" as Crackdownlike_GameLogic_State_RestartingGame
+  state "Resuming" as Crackdownlike_GameLogic_State_Resuming {
+    Crackdownlike_GameLogic_State_Resuming : OnExit → HidePauseMenu
+  }
+  state "Won" as Crackdownlike_GameLogic_State_Won {
+    Crackdownlike_GameLogic_State_Won : OnEnter → ShowWonScreen
+  }
+  Crackdownlike_GameLogic_State : OnIsMouseCaptured() → CaptureMouse
+  Crackdownlike_GameLogic_State : OnIsPaused() → SetPauseMode
+}
+
+Crackdownlike_GameLogic_State_Lost --> Crackdownlike_GameLogic_State_Quit : GoToMainMenu
+Crackdownlike_GameLogic_State_Lost --> Crackdownlike_GameLogic_State_RestartingGame : Start
+Crackdownlike_GameLogic_State_MenuBackdrop --> Crackdownlike_GameLogic_State_MenuBackdrop : Initialize
+Crackdownlike_GameLogic_State_MenuBackdrop --> Crackdownlike_GameLogic_State_Playing : Start
+Crackdownlike_GameLogic_State_Paused --> Crackdownlike_GameLogic_State_Quit : GoToMainMenu
+Crackdownlike_GameLogic_State_Paused --> Crackdownlike_GameLogic_State_Resuming : PauseButtonPressed
+Crackdownlike_GameLogic_State_Paused --> Crackdownlike_GameLogic_State_Saving : SaveRequested
+Crackdownlike_GameLogic_State_Playing --> Crackdownlike_GameLogic_State_Lost : EndGame
+Crackdownlike_GameLogic_State_Playing --> Crackdownlike_GameLogic_State_Paused : PauseButtonPressed
+Crackdownlike_GameLogic_State_Playing --> Crackdownlike_GameLogic_State_Quit : EndGame
+Crackdownlike_GameLogic_State_Playing --> Crackdownlike_GameLogic_State_Won : EndGame
+Crackdownlike_GameLogic_State_Resuming --> Crackdownlike_GameLogic_State_Playing : PauseMenuTransitioned
+Crackdownlike_GameLogic_State_Saving --> Crackdownlike_GameLogic_State_Paused : SaveCompleted
+Crackdownlike_GameLogic_State_Won --> Crackdownlike_GameLogic_State_Won : GoToMainMenu
+
+[*] --> Crackdownlike_GameLogic_State_MenuBackdrop
+@enduml

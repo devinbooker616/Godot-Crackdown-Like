@@ -1,0 +1,17 @@
+@startuml PlayerCameraLogic
+state "PlayerCameraLogic State" as Crackdownlike_PlayerCameraLogic_State {
+  state "InputDisabled" as Crackdownlike_PlayerCameraLogic_State_InputDisabled
+  state "InputEnabled" as Crackdownlike_PlayerCameraLogic_State_InputEnabled
+  Crackdownlike_PlayerCameraLogic_State : OnPhysicsTicked → CameraLocalPositionChanged, CameraOffsetChanged, GimbalRotationChanged, GlobalTransformChanged
+}
+
+Crackdownlike_PlayerCameraLogic_State --> Crackdownlike_PlayerCameraLogic_State : PhysicsTicked
+Crackdownlike_PlayerCameraLogic_State --> Crackdownlike_PlayerCameraLogic_State : TargetOffsetChanged
+Crackdownlike_PlayerCameraLogic_State --> Crackdownlike_PlayerCameraLogic_State : TargetPositionChanged
+Crackdownlike_PlayerCameraLogic_State_InputDisabled --> Crackdownlike_PlayerCameraLogic_State_InputEnabled : EnableInput
+Crackdownlike_PlayerCameraLogic_State_InputEnabled --> Crackdownlike_PlayerCameraLogic_State_InputDisabled : DisableInput
+Crackdownlike_PlayerCameraLogic_State_InputEnabled --> Crackdownlike_PlayerCameraLogic_State_InputEnabled : JoyPadInputOccurred
+Crackdownlike_PlayerCameraLogic_State_InputEnabled --> Crackdownlike_PlayerCameraLogic_State_InputEnabled : MouseInputOccurred
+
+[*] --> Crackdownlike_PlayerCameraLogic_State_InputDisabled
+@enduml

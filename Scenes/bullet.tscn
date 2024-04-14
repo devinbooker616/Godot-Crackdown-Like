@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdew6177hlun7"]
+
+[ext_resource type="Script" path="res://Code/bullet.cs" id="1_spqlf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_na35r"]
+radius = 0.138
+height = 2.226
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3owh"]
+albedo_color = Color(0.266667, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 0.988235, 1)
+emission_energy_multiplier = 24.1
+
+[node name="Bullet" type="Node3D"]
+transform = Transform3D(1.00528, 0, 0, 0, 1.00528, 0, 0, 0, 1.00528, 0, 0, 0)
+script = ExtResource("1_spqlf")
+BulletTrailLifeTime = null
+BulletTrailSpeed = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0153583, -0.999882, 0, 0.999882, 0.0153583, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_na35r")
+surface_material_override/0 = SubResource("StandardMaterial3D_x3owh")
+
+[node name="RayCast3D" type="RayCast3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.20637, 0.000373721, -5.96046e-08, 0.00586295)
+target_position = Vector3(0, 0, -0.5)

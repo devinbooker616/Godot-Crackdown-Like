@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy0oqghfbqpb7"]
+
+[ext_resource type="Script" path="res://Items/Interactables/PickUppable.cs" id="1_tkpb2"]
+
+[node name="PickuppableTemplate" type="Node3D"]
+
+[node name="PickUppable" type="Area3D" parent="."]
+script = ExtResource("1_tkpb2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUppable"]
